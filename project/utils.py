@@ -1,4 +1,4 @@
-from .config import PASSWORD_POLICY
+from .config import PASSWORD_POLICY, PASSWORD_BLACKLIST
 from flask import Request
 
 def is_bot(request: Request) -> bool:
@@ -27,6 +27,7 @@ def password_meets_security_requirements(password: str) -> bool:
     no_of_upper_chars = len(list(filter(lambda c: c in upperchars, password)))
     no_of_lower_chars = len(list(filter(lambda c: c in lowerchars, password)))
     no_of_numeric_chars = len(list(filter(lambda c: c in nums, password)))
+    password_too_common = password in PASSWORD_BLACKLIST
 
     return (
         no_of_alpha_chars >= PASSWORD_POLICY["MIN_NO_OF_ALPHA_CHARS"]
@@ -47,7 +48,7 @@ def file_signature_valid(extension: str, file: bytes) -> bool:
     List of valid extensions: 
     png, 
     apng*
-    avif* 
+    avif, 
     gif, 
     webp,
     jpg,

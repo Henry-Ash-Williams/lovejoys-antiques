@@ -157,22 +157,13 @@ def password_reset_get():
 @limiter.limit("5/minute")
 def password_reset_post():
     email = request.form.get("email")
-
-    recaptcha_response = request.form.get('g-recaptcha-response')
-
-    data = {
-        'secret': env['RECAPTCHA_PRIVATE_KEY'],
-        'response': recaptcha_response
-    }
-    response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-    result = response.json()
     user = User.query.filter_by(email=email).first()
 
     if not user:
         flash("Could not find that user in the database")
         return redirect(url_for("auth.password_reset_get"))
 
-    if not result['success']:
+    if is_bot(request):
         flash("Captcha failed")
         return redirect(url_for("auth.signup_get"))
 
