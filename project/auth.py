@@ -57,11 +57,8 @@ def confirm_email(token):
     user = User.query.filter_by(email=current_user.email).first()
 
     if user.email == email:
-        print("Verifying user")
         user.email_verified = True
         db.session.commit()
-    else:
-        print("User email mismatched with token")
 
     return redirect(url_for("main.profile"))
 

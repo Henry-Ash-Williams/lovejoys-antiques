@@ -11,7 +11,7 @@
         {% endwith %}
         <form method="POST" action="{{ url_for('main.request_evaluation_post') }}" enctype="multipart/form-data">
           <div class="control">
-              <textarea required class="textarea" placeholder="Enter any comments about the item here" name="comments"></textarea>
+              <textarea class="textarea" placeholder="Enter any comments about the item here" name="comments"></textarea>
           </div>
           <div class="control" style="margin-top: 10px;">
             <div class="file has-name">

@@ -48,7 +48,6 @@ def request_evaluation_post():
 
 
     image = image.read()
-    print("A", image[:10])
 
     # Check the magic bytes of a file to ensure the file is actually 
     # what we expect, as you can easily change the extension of a file 
@@ -81,8 +80,7 @@ def evaluations():
     for image in images:
         posted_by = User.query.filter_by(id=image.posted_by).first()
         image_plaintext = cipher.decrypt(image.image)
-        print("A", image_plaintext[:10])
 
-        evaluations.append((evaluations, posted_by, image_plaintext.decode()))
+        evaluations.append((evaluations, posted_by, base64.b64encode(image_plaintext).decode()))
 
     return render_template("evaluations.html", evaluations=evaluations)
