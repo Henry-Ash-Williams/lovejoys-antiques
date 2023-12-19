@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for (evaluation, posted_by, image_plaintext) in evaluations %}
+<div class="box">
+    <img src="data:image/{{ evaluation.filetype }};base64,{{ image_plaintext }}" width="320">
+    <br>
+    <p>{{ evaluation.comments }}</p>
+    <br>
+    <p>Posted by {{ posted_by.username }}</p>
+</div>
+{% endfor %}
+{% endblock %}

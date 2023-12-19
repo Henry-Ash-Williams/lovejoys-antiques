@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('main.request_evaluation_post') }}" enctype="multipart/form-data">
+          <div class="control">
+              <textarea required class="textarea" placeholder="Enter any comments about the item here" name="comments"></textarea>
+          </div>
+          <div class="control" style="margin-top: 10px;">
+            <div class="file has-name">
+                <label class="file-label">
+                  <input required class="file-input" type="file" name="image">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                  <span class="file-name">
+                    No file uploaded!
+                  </span>
+                </label>
+              </div>
+          </div>
+          <div class="g-recaptcha" data-sitekey="{{ captcha_sitekey }}" style="margin-top: 10px; margin-bottom: 10px"></div>
+          {% if current_user.email_verified %}
+            <button class="button is-block is-info is-large is-fullwidth">Submit Request for Evaluation</button>
+          {% else %}
+            <div class="notification is-danger">
+              <p>You need to verify your email before you can do that!</p>
+            </div>
+            <button disabled class="button is-block is-info is-large is-fullwidth">Submit Request for Evaluation</button>
+          {% endif %}
+        </form>
+
+        <script>
+          function sanitize(string) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#x27;',
+                "/": '&#x2F;',
+            };
+            const reg = /[&<>"'/]/ig;
+            return string.replace(reg, (match)=>(map[match]));
+          }
+          const fileInput = document.querySelector('.file input[type=file]');
+          fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+              const fileName = document.querySelector('.file-name');
+              // using Node.textContent should be enough to mitigate xss risk, 
+              // via file names but just in case, escape each special HTML character 
+              fileName.textContent = sanitize(fileInput.files[0].name);
+            }
+          }
+        </script>
+{% endblock %}
