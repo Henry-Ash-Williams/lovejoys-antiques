@@ -20,19 +20,18 @@ PASSWORD_POLICY = {
     'MIN_NO_OF_NUMERIC_CHARS': 2,
 }
 
+
 ALLOWED_FILETYPES = [
-    "apng",
     "avif",
     "gif",
     "jpg",
     "jpeg",
     "jfif",
-    "pjpeg",
-    "pjp",
     "png",
     "webp",
 ]
 
+# The top 1000 most used passwords, taken from https://github.com/iryndin/10K-Most-Popular-Passwords
 PASSWORD_BLACKLIST = [
     "password",
     "123456",

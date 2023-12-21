@@ -16,6 +16,6 @@ The `.env` file contains a set of environment variables which contain sensitive 
 
 - `SECURITY_PASSWORD_SALT`: Used by `itsdangerous` as part of the email verification step 
 - `RESEND_API_KEY`: API key used to interact with [resend](https://resend.com/overview), used to send emails 
-- `RECAPTCHA_PUBLIC_KEY`: The site key provided by google recaptcha 
-- `RECAPTCHA_PRIVATE_KEY`: The secret key provided by google recaptcha 
+- `RECAPTCHA_PUBLIC_KEY`: The site key provided by Google recaptcha 
+- `RECAPTCHA_PRIVATE_KEY`: The secret key provided by Google recaptcha 
 - `IMAGE_KEY`: The key used to encrypt and decrypt images 

@@ -35,6 +35,7 @@ def password_meets_security_requirements(password: str) -> bool:
         and no_of_lower_chars >= PASSWORD_POLICY["MIN_NO_OF_LOWERCASE_CHARS"]
         and no_of_numeric_chars >= PASSWORD_POLICY["MIN_NO_OF_NUMERIC_CHARS"]
         and len(password) >= PASSWORD_POLICY["MINIMUM_LENGTH"]
+        and not password_too_common
     )
 
 

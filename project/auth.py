@@ -10,7 +10,6 @@ from datetime import datetime
 from urllib import parse
 from uuid import uuid4
 from .config import PASSWORD_RESET_TIMEOUT
-import requests
 
 
 auth = Blueprint("auth", __name__)
@@ -112,7 +111,7 @@ Simply click on <a href="http://127.0.0.1:5000{url_for('auth.confirm_email', tok
 Thank you for signing up for our service!!""",
     }
 
-    resend.Emails.send(email)
+    print(resend.Emails.send(email))
 
     db.session.add(new_usr)
     db.session.commit()
@@ -183,7 +182,7 @@ You've requested a password reset, if this wasn't you, please ignore this email.
 
 Click on the following <a href="http://127.0.0.1:5000/reset-password/{token_urlsafe}">link</a> to reset your password""",
     }
-    resend.Emails.send(email)
+    print(resend.Emails.send(email))
     
     flash(f"We've sent you an email at {user.username}")
     return redirect(url_for("auth.login_get"))
